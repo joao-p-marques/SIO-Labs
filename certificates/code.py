@@ -30,6 +30,12 @@ def build_issuers(chain, cert):
         print("Chain completed")
         return True
 
+    if issuer in roots:
+        return build_issuers(chain, roots[issuer])
+
+    if issuer in intermediate_certs:
+        return build_issuers(chain, intermediate_certs[issuer])
+
 
 
 for entry in scandir('/etc/ssl/certs'):
